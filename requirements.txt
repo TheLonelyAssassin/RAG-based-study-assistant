@@ -2,6 +2,7 @@ streamlit
 sentence-transformers
 faiss-cpu
 pymupdf
+python-docx
 nltk
 torch
 numpy
