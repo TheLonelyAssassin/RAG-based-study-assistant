@@ -92,7 +92,7 @@ Chunk size (10 sentences, 2 overlap) was tuned through experimentation to balanc
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/TheLonelyAssassin/-RAG-based-study-assistant.git
+git clone https://github.com/TheLonelyAssassin/RAG-based-study-assistant.git
 cd -RAG-based-study-assistant
 
 # 2. Install dependencies
