@@ -1,7 +1,7 @@
 from fastapi import FastAPI, UploadFile, File,HTTPException
 from pydantic import BaseModel
 from typing import List
-import RaG,tempfile
+import RaG,tempfile,evaluate
 app =FastAPI()
 
 class QueryRequest(BaseModel):
@@ -20,7 +20,8 @@ def query(request: QueryRequest):
         raise HTTPException(status_code=400, detail="No documents indexed yet. Upload a document first.")
     quest = request.question
     answer, contex = RaG.retri_generate(quest, all_chunks, all_embeddings)
-    return {"answer": answer}
+    score = evaluate.evaluater(quest, contex, answer)
+    return {"answer": answer,"score": score}
 @app.post("/upload")
 async def read_file(files: List[UploadFile] = File(...)):
     for file in files:

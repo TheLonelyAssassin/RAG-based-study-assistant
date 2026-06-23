@@ -1,5 +1,5 @@
 import streamlit as st
-import requests
+import requests,evaluate
 st.title("What are we learning today?")
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
@@ -19,7 +19,7 @@ if files:
     question = st.chat_input("Ask a question")
     if question:
         payload={"question":question}
-        resp = requests.post("http://127.0.0.1:8000/query", json=payload)
+        resp= requests.post("http://127.0.0.1:8000/query", json=payload)
         answer=resp.json()["answer"]
         with st.chat_message("user"):
             st.write(question)
@@ -28,5 +28,8 @@ if files:
             st.write(answer)
         st.session_state["messages"].append({"role": "user", "content": question})
         st.session_state["messages"].append({"role": "assistant", "content": answer})
+        score = resp.json()["score"]
+        with st.expander("Evaluation Score"):
+            st.write(score)
 
  
